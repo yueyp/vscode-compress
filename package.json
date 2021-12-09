@@ -29,27 +29,27 @@
 		"commands": [
 			{
 				"command": "extension.compressImage",
-				"title": "compressImage",
+				"title": "compress image",
 				"category": "compress"
 			},
 			{
 				"command": "extension.compressImageFolder",
-				"title": "compressImageFolder",
+				"title": "compress images",
 				"category": "compress"
 			},
 			{
 				"command": "extension.convertToWebp",
-				"title": "convertToWebp",
+				"title": "convert image to webp",
 				"category": "compress"
 			},
 			{
 				"command": "extension.convertFolderToWebp",
-				"title": "convertFolderToWebp",
+				"title": "convert images to webp",
 				"category": "compress"
 			},
 			{
 				"command": "extension.getCompressUsedCount",
-				"title": "getCompressUsedCount",
+				"title": "get compress used count",
 				"category": "compress"
 			}
 		],

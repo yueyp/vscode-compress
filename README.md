@@ -20,17 +20,17 @@
 `compress.webpQuality`：转换为`webp`的质量配置，范围为0-100，配置越高，图片越清晰，同样体积越大。不配置时默认为50。
 ## commands
 
-### `compressImage`
-选中图片时，点击鼠标右键，选择菜单中`compressImage`命令即可压缩图片，图片压缩完成后默认放置在被压缩图片所在文件夹下的`image-min`目录。
+### `compress image`
+选中图片时，点击鼠标右键，选择菜单中`compress image`命令即可压缩图片，图片压缩完成后默认放置在被压缩图片所在文件夹下的`image-min`目录。
 
-### `compressImageFolder`
-选中文件夹时，点击鼠标右键，选择菜单中`compressImageFolder`命令即可压缩该文件夹下的图片，图片压缩完成后默认放置在该文件夹下的`image-min`目录。
+### `compress images`
+选中文件夹时，点击鼠标右键，选择菜单中`compress images`命令即可压缩该文件夹下的图片，图片压缩完成后默认放置在该文件夹下的`image-min`目录。
 
-### `convertToWebp`
-选中图片时，点击鼠标右键，选择菜单中`convertToWebp`命令即可将该图片转换为webp格式的，图片转换完成后放置在被转换图片所在文件夹下的`webp`目录。
+### `convert image to webp`
+选中图片时，点击鼠标右键，选择菜单中`convert image to webp`命令即可将该图片转换为webp格式的，图片转换完成后放置在被转换图片所在文件夹下的`webp`目录。
 
-### `convertFolderToWebp`
-选中文件夹时，点击鼠标右键，选择菜单中`convertFolderToWebp`命令即可将该文件夹下的图片转换为webp格式的，图片转换完成后放置在该文件夹下的`webp`目录。
+### `convert images to webp`
+选中文件夹时，点击鼠标右键，选择菜单中`convert images to webp`命令即可将该文件夹下的图片转换为webp格式的，图片转换完成后放置在该文件夹下的`webp`目录。
 
-### `getCompressUsedCount`
+### `get compress used count`
 由于`tinypng`官网每月仅提供了500张图片压缩免费，超出不购买的话就会压缩失败，该命令可以查询每月已经压缩了多少张图片。命令栏中输入该命令，编辑器右下角即会展示压缩了多少张图片。
