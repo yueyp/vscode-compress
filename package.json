@@ -1,0 +1,146 @@
+{
+	"name": "usmart-vscode-compress",
+	"displayName": "usmart-vscode-compress",
+	"description": "compress image",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.62.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.compressImage",
+		"onCommand:extension.compressImageFolder",
+		"onCommand:extension.getCompressUsedCount",
+		"onCommand:extension.convertToWebp"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.compressImage",
+				"title": "compressImage",
+				"category": "compress"
+			},
+			{
+				"command": "extension.compressImageFolder",
+				"title": "compressImageFolder",
+				"category": "compress"
+			},
+			{
+				"command": "extension.convertToWebp",
+				"title": "convertToWebp",
+				"category": "compress"
+			},
+			{
+				"command": "extension.getCompressUsedCount",
+				"title": "getCompressUsedCount",
+				"category": "compress"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "extension.getCompressUsedCount"
+				},
+				{
+					"command": "extension.compressImage",
+					"when": "False"
+				},
+				{
+					"command": "extension.convertToWebp",
+					"when": "False"
+				},
+				{
+					"command": "extension.compressImageFolder",
+					"when": "False"
+				}
+			],
+			"editor/title/context": [
+				{
+					"when": "resourceLangId == image_file",
+					"command": "extension.compressImage",
+					"group": "1_modification"
+				},
+				{
+					"when": "resourceLangId == image_file",
+					"command": "extension.convertToWebp",
+					"group": "1_modification"
+				}
+			],
+			"explorer/context": [
+				{
+					"when": "resourceLangId == image_file",
+					"command": "extension.compressImage",
+					"group": "1_modification"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "extension.compressImageFolder",
+					"group": "1_modification"
+				},
+				{
+					"when": "resourceLangId == image_file",
+					"command": "extension.convertToWebp",
+					"group": "1_modification"
+				}
+			]
+		},
+		"languages": [
+			{
+				"id": "image_file",
+				"extensions": [
+					".png",
+					".jpg",
+					".jpeg"
+				]
+			}
+		],
+		"configuration": {
+			"title": "TinyPNG Configuration",
+			"properties": {
+				"tinypng.apiKey": {
+					"type": "string",
+					"description": "Your TinyPNG API Key"
+				},
+				"tinypng.forceOverwrite": {
+					"type": "boolean",
+					"default": false,
+					"description": "Judge whether to overwrite the uncompressed picture or to create a new one"
+				},
+				"compress.webpQuality": {
+					"type": "number",
+					"default": 50,
+					"description": "Set picture quality factor between 0 and 100"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile && yarn run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@types/vscode": "^1.63.0",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"@vscode/test-electron": "^1.6.2",
+		"eslint": "^7.32.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.1",
+		"typescript": "^4.4.3"
+	},
+	"dependencies": {
+		"imagemin": "^7.0.1",
+		"imagemin-webp": "^6.0.0",
+		"tinify": "^1.6.1"
+	}
+}
