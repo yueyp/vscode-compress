@@ -2,7 +2,15 @@
 	"name": "usmart-vscode-compress",
 	"displayName": "usmart-vscode-compress",
 	"description": "compress image",
+	"publisher": "estelle",
 	"version": "0.0.1",
+	"icon": "images/logo.png",
+	"keywords": [
+		"tinypng",
+		"imagemin",
+		"imagemin-webp",
+		"compress"
+	],
 	"engines": {
 		"vscode": "^1.62.0"
 	},
@@ -12,8 +20,9 @@
 	"activationEvents": [
 		"onCommand:extension.compressImage",
 		"onCommand:extension.compressImageFolder",
-		"onCommand:extension.getCompressUsedCount",
-		"onCommand:extension.convertToWebp"
+		"onCommand:extension.convertToWebp",
+		"onCommand:extension.convertFolderToWebp",
+		"onCommand:extension.getCompressUsedCount"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -31,6 +40,11 @@
 			{
 				"command": "extension.convertToWebp",
 				"title": "convertToWebp",
+				"category": "compress"
+			},
+			{
+				"command": "extension.convertFolderToWebp",
+				"title": "convertFolderToWebp",
 				"category": "compress"
 			},
 			{
@@ -54,6 +68,10 @@
 				},
 				{
 					"command": "extension.compressImageFolder",
+					"when": "False"
+				},
+				{
+					"command": "extension.convertFolderToWebp",
 					"when": "False"
 				}
 			],
@@ -83,6 +101,11 @@
 				{
 					"when": "resourceLangId == image_file",
 					"command": "extension.convertToWebp",
+					"group": "1_modification"
+				},
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "extension.convertFolderToWebp",
 					"group": "1_modification"
 				}
 			]
@@ -129,7 +152,7 @@
 		"@types/glob": "^7.1.4",
 		"@types/mocha": "^9.0.0",
 		"@types/node": "14.x",
-		"@types/vscode": "^1.63.0",
+		"@types/vscode": "^1.62.0",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
 		"@vscode/test-electron": "^1.6.2",
@@ -142,5 +165,6 @@
 		"imagemin": "^7.0.1",
 		"imagemin-webp": "^6.0.0",
 		"tinify": "^1.6.1"
-	}
+	},
+	"license": "MIT"
 }

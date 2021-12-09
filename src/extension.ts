@@ -9,7 +9,7 @@ const imageminWebp = require("imagemin-webp");
 let imageQuantity: unknown;
 
 // compress image
-const compressImage = (image: any) => {
+const compressImage = (image: any, folderPath?: string) => {
 	const shouldOverwrite = vscode.workspace
 		.getConfiguration('tinypng')
 		.get('forceOverwrite');
@@ -18,7 +18,11 @@ const compressImage = (image: any) => {
 	const parsedPath = path.parse(image.fsPath);
 	if (!shouldOverwrite) {
 		const dirname = parsedPath.dir;
-		destinationImagePath = path.join(dirname, 'image-min');
+		if (folderPath) {
+			destinationImagePath = path.join(folderPath, 'image-min');
+		} else {
+			destinationImagePath = path.join(dirname, 'image-min');
+		}
 		if (!fs.existsSync(destinationImagePath)) {
 			fs.mkdir(destinationImagePath, (err: any) => {
 				if (err) {
@@ -91,10 +95,15 @@ const validate = (
 	});
 
 // convert the image to the webp format
-const convertToWebp = async (image: any) => {
-	try{
+const convertToWebp = async (image: any, folderPath?: string) => {
+	try {
 		const dirname = path.dirname(image.fsPath);
-		const destinationImagePath = path.join(dirname,'webp');
+		let destinationImagePath;
+		if (folderPath) {
+			destinationImagePath = path.join(folderPath, 'webp');
+		} else {
+			destinationImagePath = path.join(dirname, 'webp');
+		}
 		// show now is compressing
 		const statusBarItem = vscode.window.createStatusBarItem(
 			vscode.StatusBarAlignment.Left
@@ -111,8 +120,8 @@ const convertToWebp = async (image: any) => {
 		vscode.window.showInformationMessage(
 			`Successfully convert ${image.fsPath} to ${destinationImagePath + '\\' + parsedPath.name + '.webp'}!`
 		);
-	}catch(e){
-		console.log('convert fail',e);
+	} catch (e) {
+		console.log('convert fail', e);
 		vscode.window.showErrorMessage('Ooops, there is an error. Please check your source image and settings.');
 	}
 };
@@ -133,23 +142,42 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	// compress image
-	const compressImageDisposable = vscode.commands.registerCommand('extension.compressImage', compressImage);
+	const compressImageDisposable = vscode.commands.registerCommand('extension.compressImage', (image) => {
+		compressImage(image);
+	});
 	context.subscriptions.push(compressImageDisposable);
 
 	// compress image folder
-	const compressImageFolderDisposable = vscode.commands.registerCommand('extension.compressImageFolder', function (folder) {
+	const compressImageFolderDisposable = vscode.commands.registerCommand('extension.compressImageFolder',  (folder) => {
 		vscode.workspace.
 			findFiles(new vscode.RelativePattern(
-				folder.path,
+				folder.fsPath,
 				`**/*.{png,jpg,jpeg}`
 			))
-			.then((files) => files.forEach(compressImage));
+			.then((files) => files.forEach((file) => {
+				compressImage(file, folder.fsPath);
+			}));
 	});
 	context.subscriptions.push(compressImageFolderDisposable);
 
 	// convert image to webp
-	const convertToWebpDisposable = vscode.commands.registerCommand('extension.convertToWebp', convertToWebp);
+	const convertToWebpDisposable = vscode.commands.registerCommand('extension.convertToWebp', (image) => {
+		convertToWebp(image);
+	});
 	context.subscriptions.push(convertToWebpDisposable);
+
+	// compress image folder to webp
+	const convertFolderToWebpDisposable = vscode.commands.registerCommand('extension.convertFolderToWebp', (folder) => {
+		vscode.workspace.
+			findFiles(new vscode.RelativePattern(
+				folder.fsPath,
+				`**/*.{png,jpg,jpeg}`
+			))
+			.then((files) => files.forEach((file) => {
+				convertToWebp(file, folder.fsPath);
+			}));
+	});
+	context.subscriptions.push(convertFolderToWebpDisposable);
 
 	// get compress surplus count
 	const getCompressUsedCountDisposable = vscode.commands.registerCommand('extension.getCompressUsedCount', () => {
