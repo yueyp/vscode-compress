@@ -4,7 +4,7 @@
 	"description": "compress image",
 	"publisher": "estelle",
 	"version": "0.0.1",
-	"icon": "images/logo.png",
+	"icon": "https://tinypng.com/images/panda-chewing.png",
 	"keywords": [
 		"tinypng",
 		"imagemin",

@@ -1,4 +1,4 @@
-# usmart-vscode-compress README
+# usmart-vscode-compress
 
 支持压缩`png`，`jpg`，`jpeg`格式的图片。
 
