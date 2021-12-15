@@ -2,9 +2,9 @@
 	"name": "usmart-vscode-compress",
 	"displayName": "usmart-vscode-compress",
 	"description": "compress image",
-	"publisher": "estelle",
+	"publisher": "estelleyyp",
 	"version": "0.0.1",
-	"icon": "https://tinypng.com/images/panda-chewing.png",
+	"icon": "img/abaplint_icon.png",
 	"keywords": [
 		"tinypng",
 		"imagemin",
